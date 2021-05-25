@@ -45,7 +45,7 @@ struct ConvexHull {
 		return hull[r].eval(x);
 	}
 };
-//// Short code from KACTL. Be careful !  This template can only be used from c++11 and above.
+//// Short code from KACTL. Be careful !  This template can only be used from c++14 and above.
 struct Line {
 	mutable ll k, m, p;
 	bool operator<(const Line& o) const { return k < o.k; }
