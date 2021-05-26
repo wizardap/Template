@@ -78,7 +78,7 @@ struct ConvexHull
 		}
 		return hull[r].eval(x);
 	}
-} cht;
+};
 //// Short code from KACTL. Be careful !  This template can only be used from c++14 and above. And this code can't delete or roll back 
 struct Line {
 	mutable LL k, m, p;
