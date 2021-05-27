@@ -1,7 +1,7 @@
 ///All template are helped to find maximum value at point x in line y=a*x+b
 
 
-//// Based on Codeforces users : xfce66666
+//// Based on Codeforces users : xfce8888
 /// Modified by WizardAP
 /// Use to query maximum value, if u wanna query minimum query , just change sign to (-) . Example : y=ax+b -> add(a,b), query(x) . After change sign , it will be : add(-a,-b),-query(x)
 struct ConvexHull 
