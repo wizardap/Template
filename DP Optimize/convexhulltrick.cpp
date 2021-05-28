@@ -3,6 +3,9 @@
 
 //// Based on Codeforces users : xfce8888
 /// Modified by WizardAP
+//// Update warning: If the line is y=-a*x+b , u should change y = a*(-x)+b and when u query in x-coordinate , u will type this code line: query(-x). 
+/// You can try this detail on this problem : https://codeforces.com/contest/1083/problem/E
+///------------------------------------------------------------------------------------START--------------------------------------------------------------
 /// Use to query maximum value, if u wanna query minimum query , just change sign to (-) . Example : y=ax+b -> add(a,b), query(x) . After change sign , it will be : add(-a,-b),-query(x)
 struct ConvexHull 
 {
@@ -24,7 +27,7 @@ struct ConvexHull
 
 	vector<Line> hull;
 	vector<roll_back> backup;
-	void restart(int maxSize)
+	void setsize(int maxSize)
 	{
 		hull.resize(maxSize + 5, Line(0, 0));
 	}
