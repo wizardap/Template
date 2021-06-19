@@ -114,3 +114,71 @@ struct LineContainer : multiset<Line, less<>> {
 		return l.k * x + l.m;
 	}
 };
+
+
+
+
+/// Source: Codeforces Handle : islammohsen 
+struct Line
+{
+  LL m, b;
+  double x;
+  bool isQuery;
+  Line(LL _m, LL _b, double _x, bool _isQuery) { m = _m; b = _b; x = _x; isQuery = _isQuery; }
+  // Line(LL _m = 0, LL _b = 0) : m(_m), b(_b), x(-inf), isQuery(false) {};
+  LL eval(LL x) const {return (m * x + b);}
+  bool parallel(const Line &l)const { return m == l.m;}
+  double isect(const Line &l)const { return parallel(l) ? -inf : 1.0 * (l.b - b) / (m - l.m); } /// intersection of two lines
+  bool operator<(const Line &l) const { if (l.isQuery) return x < l.x; else return m < l.m;}
+};
+template<bool isMaxHull> struct DynamicHull
+{
+	const LL inf=1e18;
+  set<Line> hull;
+  typedef set<Line>::iterator iter;
+  bool has_Prev(iter it) { return it != hull.begin();}
+  bool has_Next(iter it) {return it != hull.end() && next(it) != hull.end();}
+  LL Div(LL a, LL b) {return (a / b) - ((a ^ b) < 0 && a % b);}
+  bool bad(const Line &Prev, const Line &Cur, const Line &Next)
+  {
+    // return Div(Cur.b - Next.b, Next.m - Cur.m) <= Div(Cur.b - Prev.b, Prev.m - Cur.m);
+    return Cur.isect(Next) <= Cur.isect(Prev); /// Avoid overflow
+  }
+  bool bad(iter it)
+  {
+    return (has_Prev(it) && has_Next(it) && bad(*prev(it), *it, *next(it)));
+  }
+  iter update(iter it)
+  {
+    if (!has_Prev(it)) return it;
+    double x = it->isect(*prev(it));
+    Line New = *it;
+    New.x = x;
+    it = hull.erase(it);
+    return hull.insert(it, New);
+  }
+  void addLine(LL m, LL b)
+  {
+    if (!isMaxHull) { m *= -1ll; b *= -1ll;}
+    Line l(m, b, (isMaxHull ? -inf : inf ) , 0);
+    iter it = hull.lower_bound(l);
+    if (it != hull.end() && l.parallel(*it)) /// Case : Parallel Line isn't better
+      if (it->b <= b) it = hull.erase(it); /// If it isn't better, erase it
+      else return ; /// Certainly this line hasn't better
+    it = hull.insert(it, l);
+    if (bad(it)) { hull.erase(it); return ;} /// Check again
+    while (has_Prev(it) && bad(prev(it))) hull.erase(prev(it));/// Check left the current line 
+    while (has_Next(it) && bad(next(it))) hull.erase(next(it));/// Check right the current line 
+    it = update(it);/// Update intersection of the mix of the previous line and the current line
+    if (has_Prev(it)) update(prev(it));/// Update intersection of the mix of the previous of previous line and the previous line 
+    if (has_Next(it)) update(next(it));/// Update intersection of the mid of the next of the next line and the next line 
+  }
+  LL query(LL X)
+  {
+    if (hull.empty()) return (isMaxHull ? -inf : inf);
+    Line LN = *prev(hull.lower_bound(Line(0, 0, X, 1)));
+    return (isMaxHull ?  LN.eval(X) : -LN.eval(X));
+  }
+};
+
+///
