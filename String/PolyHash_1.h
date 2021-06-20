@@ -85,8 +85,9 @@ struct PolyHash
     }
     Hash gethash(int l, int r)
     {
+        Hash res;
         for (int j = 0; j < NMOD; j++)
-            hash[l - 1].value[j] = (hash[l - 1].value[j] * pw[j][r - l + 1]) % modulo[j];
-        return hash[r] - hash[l - 1];
+            res.value[j] = ((hash[r].value[j] - hash[l - 1].value[j] * pw[j][r - l + 1]) % modulo[j] + modulo[j]) % modulo[j];
+        return res;
     }
 };
