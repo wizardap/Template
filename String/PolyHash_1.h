@@ -66,12 +66,13 @@ struct Hash
             if (value[j] != x.value[j]) return false;
         return true;
     }
-} NO_OPERATION;
+};
 
 struct PolyHash
 {
     vector<Hash> hash;
     int n;
+    const Hash NO_OPERATION;
     void init_hash(const string &s)
     {
         n = (int)s.size();
