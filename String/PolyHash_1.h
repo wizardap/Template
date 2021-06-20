@@ -1,5 +1,5 @@
 /* 
-    - Source: Van Hanh Pham
+    - Source: VNOI
     - Modified by WizardAP
     *) Verification: 
         - https://oj.vnoi.info/problem/substr
