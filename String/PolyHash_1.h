@@ -4,6 +4,7 @@
     *) Verification: 
         - https://oj.vnoi.info/problem/substr
         - https://oj.vnoi.info/problem/dtksub
+        - https://oj.vnoi.info/problem/vostr
 */
 
 
@@ -68,6 +69,11 @@ struct Hash
             if (value[j] != x.value[j]) return false;
         return true;
     }
+    bool operator!=(const Hash &x)const
+    {
+        for (int j = 0; j < NMOD; j++) if (value[j] != x.value[j]) return true;
+        return false;
+    }
 };
 
 struct PolyHash
@@ -82,9 +88,9 @@ struct PolyHash
         for (int i = 0; i < n; i++)
             hash[i + 1] = hash[i] * base + Hash(s[i]);
     }
-    Hash gethash()
+    Hash gethash(int pos)
     {
-        return hash[n];
+        return hash[pos];
     }
     Hash gethash(int l, int r)
     {
