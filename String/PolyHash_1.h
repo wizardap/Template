@@ -7,6 +7,7 @@
 
 
 //// The larger the number of modules, the slower the program runs
+///// WARNING ! : Please use "precompute" function , maybe you are wrong because you don't use that function( precompute's function) 
 const int NMOD = 4;
 const int base = 257;
 const LL modulo[] = {(LL)1e9 + 2277, (LL)1e9 + 5277, (LL)1e9 + 8277, (LL)1e9 + 9277};
