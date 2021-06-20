@@ -3,6 +3,7 @@
     - Modified by WizardAP
     *) Verification: 
         - https://oj.vnoi.info/problem/substr
+        - https://oj.vnoi.info/problem/dtksub
 */
 
 
