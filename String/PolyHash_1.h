@@ -66,12 +66,6 @@ struct Hash
             if (value[j] != x.value[j]) return false;
         return true;
     }
-    bool operator>(const Hash &x)const
-    {
-        for (int j = 0; j < NMOD; j++)
-            if (value[j] != x.value[j]) return (value[j] > x.value[j]);
-        return false;
-    }
 } NO_OPERATION;
 
 struct PolyHash
