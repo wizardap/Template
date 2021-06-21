@@ -1,3 +1,9 @@
+/*
+    Modified by WizardAP
+    Verification:
+        - https://acm.timus.ru/problem.aspx?space=1&num=1671
+*/
+///1-based
 struct DSU
 {
     vector<int> par, rnk;
