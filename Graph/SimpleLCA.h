@@ -16,9 +16,9 @@ struct LCA
     {
         Time = 0;
         n = N;
-        depth.resize(n + 1, 0);
-        tin.resize(n + 1, 0);
-        tout.resize(n + 1, 0);
+        depth.assign(n + 1, 0);
+        tin.assign(n + 1, 0);
+        tout.assign(n + 1, 0);
         lg = log2(n) + 1;
         par.assign(n + 1, vector<int>(lg + 1, -1));
         adj.clear();
