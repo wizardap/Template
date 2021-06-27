@@ -5,6 +5,7 @@
     - https://oj.vnoi.info/problem/fmatch
 */
 /// Time complexity: O(√m.n) (m : number of edges, n : number of vertices) 
+/// Notes: if (√m>n) , let's using Kuhn's algorithm because it's faster than this algorithm
 class HopcroftKarp 
 {
 private:
@@ -86,4 +87,4 @@ private:
         dist[u] = NO_MATCHING;
         return false;
     }
-} cg;
+};
