@@ -1,3 +1,10 @@
+/*
+	Resource : Ba Thai Pham 
+	Verification : 
+		- https://oj.vnoi.info/problem/elect
+		- https://oj.vnoi.info/problem/twosat
+		- https://cses.fi/problemset/task/1684
+*/
 struct TWO_SAT
 {
 	vector<vector<int> > e;
