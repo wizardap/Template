@@ -1,3 +1,6 @@
+/*
+    Resource: KACTL Notebook
+*/
 const int LIM = 5000000;
 int phi[LIM];
 
