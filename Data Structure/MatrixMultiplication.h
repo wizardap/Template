@@ -18,19 +18,19 @@ struct matrix {
 matrix One()
 {
     matrix c;
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
+    for (int i = 0; i < matrix_size; i++)
+        for (int j = 0; j < matrix_size; j++)
             c.v[i][j] = (i == j ? 1 : 0);
     return c;
 }
 matrix operator*(matrix a, matrix b)
 {
     matrix c;
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
+    for (int i = 0; i < matrix_size; i++)
+        for (int j = 0; j < matrix_size; j++)
         {
             c.v[i][j] = 0;
-            for (int k = 0; k < 2; k++)
+            for (int k = 0; k < matrix_size; k++)
                 c.v[i][j] = (c.v[i][j] + a.v[i][k] * b.v[k][j]) % mod;
         }
     return c;
