@@ -35,7 +35,7 @@ template<class T> struct Dinic
             {
                 const Edge& e = *it;
                 int v = e.to;
-                if (lvl[v] < 0 && e.flow < e.cap & (!SCALING || e.cap - e.flow >= lim)) { lvl[v] = lvl[u] + 1; q.push(v);}
+                if (lvl[v] < 0 && e.flow < e.cap && (!SCALING || e.cap - e.flow >= lim)) { lvl[v] = lvl[u] + 1; q.push(v);}
             }
         }
         return lvl[t] >= 0;
