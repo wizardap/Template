@@ -7,7 +7,7 @@
 */
 
 const LL modulo[] = {(LL)1e9 + 2277, (LL)1e9 + 5277, (LL)1e9 + 8277, (LL)1e9 + 9277};
-const int NMOD = 1;
+const int NMOD = 1; /// if you want more accuracy , increase this variable !
 struct RMD
 {
 	LL value[NMOD];
