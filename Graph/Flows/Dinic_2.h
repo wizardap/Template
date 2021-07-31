@@ -3,6 +3,7 @@
   * Modified by WizardAP
   * Verification :
         - https://oj.vnoi.info/problem/nkflow
+	- Minmum Cut : https://cses.fi/problemset/task/1695
 */
 /// 0-based
 template<class T> struct Dinic
