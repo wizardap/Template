@@ -1,5 +1,5 @@
 /* 
-  * Source: benq
+  * Source: Benjamin Qi (Benq) 
   * Modified by WizardAP
   * Verification :
         - https://oj.vnoi.info/problem/nkflow
