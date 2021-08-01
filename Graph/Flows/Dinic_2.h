@@ -4,7 +4,7 @@
   * Verification :
         - https://oj.vnoi.info/problem/nkflow
 	- Minmum Cut : https://cses.fi/problemset/task/1695
-  * Description how minimum cut work : 
+  * Description how minimum cut work(Source : from a comment on stackoverflow )  : 
 	- Run any max flow algorithm on residual graph (Ford-Fulkerson, Edmonds Karp, Dinic, etc)
 	- Do BFS from source node ignoring saturated edges (edges where flow value = edge capacity)
 	- Now take all edges that go from visited nodes to unvisited nodes
