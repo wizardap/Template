@@ -9,31 +9,31 @@
       + Create a fake source and fake sink to use this template
       + Can't use with negative weight 
 */
-const LL inf = 1e18;
+const ll inf = 1e18;
 struct MCMF
 {
 	struct Edge
 	{
 		int u, v;
-		LL  cap, cost, flow;
-		Edge(int u = 0, int v = 0, LL cap = 0, LL cost = 0): u(u), v(v), cap(cap), cost(cost), flow(0) {};
-		LL rem() { return cap - flow;}
+		ll  cap, cost, flow;
+		Edge(int u = 0, int v = 0, ll cap = 0, ll cost = 0): u(u), v(v), cap(cap), cost(cost), flow(0) {};
+		ll rem() { return cap - flow;}
 	};
-	vi<vi<int>> adj;
-	vi<Edge> eds;
-	vi<int> trace;
-	vi<LL> dist;
+	vt<vt<int>> adj;
+	vt<Edge> eds;
+	vt<int> trace;
+	vt<ll> dist;
 	int n;
-	priority_queue<pair<LL, int>, vector<pair<LL, int>>, greater<pair<LL, int>>> pq;
+	priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;
 	MCMF(int _n = 0)
 	{
 		n = _n;
-		adj.assign(n + 7, vi<int>());
+		adj.assign(n + 7, vt<int>());
 		eds.clear();
 		trace.assign(n + 7, -1);
 		dist.assign(n + 7, inf);
 	}
-	void addEdge(int u, int v, LL cap, LL cost)
+	void addEdge(int u, int v, ll cap, ll cost)
 	{
 		adj[u].pb(sz(eds)); eds.pb(Edge(u, v, cap, cost));
 		adj[v].pb(sz(eds)); eds.pb(Edge(v, u, 0, -cost));
@@ -50,14 +50,14 @@ struct MCMF
 		while (!pq.empty())
 		{
 			int u = pq.top().sd;
-			LL du = pq.top().ft;
+			ll du = pq.top().ft;
 			pq.pop();
 			if (du != dist[u]) continue;
 			rof(id, adj[u])
 			if (eds[*id].rem() > 0)
 			{
 				int v = eds[*id].v;
-				LL w = eds[*id].cost;
+				ll w = eds[*id].cost;
 				if (minimize(dist[v], dist[u] + w))
 				{
 					pq.push(make_pair(dist[v], v));
@@ -67,12 +67,12 @@ struct MCMF
 		}
 		return trace[t] != -1;
 	}
-	pair<LL, LL> answer(int s, int t)
+	pair<ll, ll> answer(int s, int t)
 	{
-		LL totflow = 0, totcost = 0;
+		ll totflow = 0, totcost = 0;
 		while (path(s, t))
 		{
-			LL minflow = inf;
+			ll minflow = inf;
 			for (int u = t; u != s; u = eds[trace[u]].u) minimize(minflow, eds[trace[u]].rem());
 			for (int u = t; u != s; u = eds[trace[u]].u) {
 				eds[trace[u]].flow += minflow;

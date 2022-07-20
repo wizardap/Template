@@ -37,12 +37,12 @@ template<class T> struct SegTree
 	void upd(int u, int v, T val) {upd(u, v, val, 1, 1, N);}
 	T get(int u, int v) {return get(u, v, 1, 1, N);}
 };
-template<bool vie> struct hld
+template<bool vte> struct hld
 {
 	vector<vector<int>> adj;
 	vector<int> depth, parent, head, heavy, pos, size;
 	int timer, N;
-	SegTree<LL> TREE;
+	SegTree<ll> TREE;
 	void addEdge(int u, int v) {adj[u].pb(v); adj[v].pb(u);}
 	void prepare(int _N)
 	{
@@ -88,19 +88,19 @@ template<bool vie> struct hld
 	int dist(int u, int v) {
 		return (depth[u] + depth[v] - 2 * depth[lca(u, v)]);
 	}
-	LL query(int u, int v)
+	ll query(int u, int v)
 	{
-		LL res = 0;
+		ll res = 0;
 		for (; head[u] != head[v]; v = parent[head[v]])
 		{
 			if (depth[head[u]] > depth[head[v]]) swap(u, v);
 			res = max(res, TREE.get(pos[head[v]], pos[v]));
 		}
 		if (depth[u] > depth[v]) swap(u, v);
-		res = max(res, TREE.get(pos[u] + vie, pos[v]));
+		res = max(res, TREE.get(pos[u] + vte, pos[v]));
 		return res;
 	}
-	void upd(int u, int v, LL w)
+	void upd(int u, int v, ll w)
 	{
 		for (; head[u] != head[v]; v = parent[head[v]])
 		{
@@ -108,6 +108,6 @@ template<bool vie> struct hld
 			TREE.upd(pos[head[v]], pos[v], w);
 		}
 		if (depth[u] > depth[v]) swap(u, v);
-		TREE.upd(pos[u] + vie, pos[v], w);
+		TREE.upd(pos[u] + vte, pos[v], w);
 	}
 };

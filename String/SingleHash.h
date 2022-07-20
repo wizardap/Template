@@ -6,8 +6,8 @@
  */
 /// This is made for 1-based range
 const int base=29;
-const LL MOD=1e9+7;
-LL pw[mxn];
+const ll MOD=1e9+7;
+ll pw[mxn];
 void precompute(int Leng)
 {
     for (int i = 0; i <= Leng; i++)
@@ -15,7 +15,7 @@ void precompute(int Leng)
 }
 struct PolyHash
 {
-    vector<LL> hash;
+    vector<ll> hash;
     int n;
     void init_hash(const string& s)
     {
@@ -24,10 +24,10 @@ struct PolyHash
         for (int i = 0; i < n; i++)
             hash[i + 1] = (hash[i] * base + (s[i] - 'a' + 1) ) % MOD;
     }
-    LL gethash(int pos) {
+    ll gethash(int pos) {
         return hash[pos];
     }
-    LL gethash(int l, int r)
+    ll gethash(int l, int r)
     {
         return ((hash[r] - hash[l - 1] * pw[r - l + 1]) % MOD + MOD) % MOD;
     }

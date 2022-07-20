@@ -12,32 +12,32 @@
 struct mcmf  
 {
 private:
-	const LL INFINITIVE = LLONG_MAX;
+	const ll INFINITIVE = LLONG_MAX;
 public:
 	struct Edge
 	{
 		int u, v;
-		LL flow, cap, cost;
-		Edge(int u = 0, int v = 0, LL cap = 0, LL cost = 0) : u(u), v(v), flow(0), cap(cap), cost(cost) {};
-		LL rem() { return cap - flow;}
+		ll flow, cap, cost;
+		Edge(int u = 0, int v = 0, ll cap = 0, ll cost = 0) : u(u), v(v), flow(0), cap(cap), cost(cost) {};
+		ll rem() { return cap - flow;}
 	};
-	vi<LL> dist;
-	vi<bool> inq;
-	vi<vi<int>> adj;
-	vi<Edge> eds;
-	vi<int> trace;
+	vt<ll> dist;
+	vt<bool> inq;
+	vt<vt<int>> adj;
+	vt<Edge> eds;
+	vt<int> trace;
 	queue<int> q;
 	int n;
 	mcmf (int _n = 0)
 	{
 		n = _n;
-		adj.assign(n + 7, vi<int>());
+		adj.assign(n + 7, vt<int>());
 		dist.assign(n + 7, 0);
 		inq.assign(n + 7, 0);
 		trace.assign(n + 7, -1);
 		eds.clear();
 	}
-	void addEdge(int u, int v, LL cap, LL cost)
+	void addEdge(int u, int v, ll cap, ll cost)
 	{
 		adj[u].pb(sz(eds)); eds.pb(Edge(u, v, cap, cost));
 		adj[v].pb(sz(eds)); eds.pb(Edge(v, u, 0, -cost));
@@ -63,7 +63,7 @@ public:
 			if (eds[*id].rem() > 0)
 			{
 				int v = eds[*id].v;
-				LL w = eds[*id].cost;
+				ll w = eds[*id].cost;
 				if (minimize(dist[v], dist[u] + w))
 				{
 					if (!inq[v])
@@ -77,12 +77,12 @@ public:
 		}
 		return trace[t] != -1;
 	}
-	pair<LL, LL> getans(int s, int t)
+	pair<ll, ll> getans(int s, int t)
 	{
-		LL totflow = 0, totcost = 0;
+		ll totflow = 0, totcost = 0;
 		while (path(s, t))
 		{
-			LL minflow = INFINITIVE;
+			ll minflow = INFINITIVE;
 			for (int u = t; u != s; u = eds[trace[u]].u) minimize(minflow, eds[trace[u]].rem());
 			for (int u = t; u != s; u = eds[trace[u]].u) {
 				eds[trace[u]].flow += minflow;

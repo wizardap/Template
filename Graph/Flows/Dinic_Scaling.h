@@ -9,14 +9,14 @@
 /// 0-based
 template<class T> struct Dinic
 {
-#define vi vector
+#define vt vector
     struct Edge {int to, rev; T flow, cap;};
     bool SCALING = false;
     const T INF = 1e18;
     int N; queue<int> q;
-    vi<int> lvl, cur;
+    vt<int> lvl, cur;
     T lim;
-    vi<vi<Edge>> adj;
+    vt<vt<Edge>> adj;
     void init(int _N, bool NeedFaster = false ) { N = _N; adj.clear(); adj.resize(N); cur.clear(); cur.resize(N); SCALING = NeedFaster;   };
     void addEdge(int u, int v, T cap, bool isDirected = true)
     {

@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-using LL = int64_t;
+using ll = int64_t;
 ///-----------------------------------------------------------------------------------------------------------
 const int ALPHABET = 26;
 const char firstchar = 'a';

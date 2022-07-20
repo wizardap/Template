@@ -55,11 +55,11 @@ struct TWO_SAT
  
 	vector<int> solve()
 	{
-		REP(i, sz(e))
+		for (int i =0;i<sz(e);i++)
 		if (!num[i]) dfs(i);
 		int n = sz(e) >> 1;
 		vector<int> ans(n);
-		REP(x, n)
+		for (int i =0;i<n;i++)
 		{
 			if (lab[x << 1 ^ false] == lab[x << 1 ^ true]) return vector<int> (0);
 			ans[x] = (lab[x << 1 ^ false] > lab[x << 1 ^ true]);

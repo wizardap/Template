@@ -7,7 +7,7 @@
 const int matrix_size = 3;
 const int mod = 1e9 + 7;
 struct matrix {
-    LL v[matrix_size][matrix_size];
+    ll v[matrix_size][matrix_size];
     matrix() {memset(v, 0, sizeof v);}
     void print()
     {
@@ -35,7 +35,7 @@ matrix operator*(matrix a, matrix b)
         }
     return c;
 }
-matrix operator^(matrix a, LL k)
+matrix operator^(matrix a, ll k)
 {
     matrix res = One();
     for (; k > 0; k >= 1ll, a = a * a)

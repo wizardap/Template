@@ -12,8 +12,8 @@
 ///// WARNING ! : Please use "precompute" function , maybe you are wrong because you don't use that function( precompute's function) 
 const int NMOD = 4;
 const int base = 257;
-const LL modulo[] = {(LL)1e9 + 2277, (LL)1e9 + 5277, (LL)1e9 + 8277, (LL)1e9 + 9277};
-LL pw[NMOD][mxn];
+const ll modulo[] = {(ll)1e9 + 2277, (ll)1e9 + 5277, (ll)1e9 + 8277, (ll)1e9 + 9277};
+ll pw[NMOD][mxn];
 void precompute(int Leng)
 {
     for (int j = 0; j < NMOD; j++)
@@ -22,7 +22,7 @@ void precompute(int Leng)
 }
 struct Hash
 {
-    LL value[NMOD];
+    ll value[NMOD];
     Hash()
     {
         memset(value, 0, sizeof value);
@@ -50,11 +50,11 @@ struct Hash
         }
         return res;
     }
-    Hash operator*(LL k)const
+    Hash operator*(ll k)const
     {
         Hash res;
         for (int j = 0; j < NMOD; j++)
-            res.value[j] = 1LL * value[j] * k % modulo[j];
+            res.value[j] = 1ll * value[j] * k % modulo[j];
         return res;
     }
     bool operator<(const Hash &x)const

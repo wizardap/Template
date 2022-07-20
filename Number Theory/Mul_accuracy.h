@@ -6,12 +6,12 @@
       - https://oj.vnoi.info/problem/product
 */
 
-const LL modulo[] = {(LL)1e9 + 2277, (LL)1e9 + 5277, (LL)1e9 + 8277, (LL)1e9 + 9277};
+const ll modulo[] = {(ll)1e9 + 2277, (ll)1e9 + 5277, (ll)1e9 + 8277, (ll)1e9 + 9277};
 const int NMOD = 1; /// if you want more accuracy , increase this variable !
 struct RMD
 {
-	LL value[NMOD];
-	const LL no_opt = -1;
+	ll value[NMOD];
+	const ll no_opt = -1;
 	RMD()
 	{
 		memset(value, -1, sizeof value);
@@ -55,7 +55,7 @@ struct RMD
 };
 struct Tree
 {
-	vi<RMD> t;
+	vt<RMD> t;
 	int n;
 	void build(int id, int l, int r)
 	{

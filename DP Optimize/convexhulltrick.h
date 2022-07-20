@@ -12,10 +12,10 @@ struct ConvexHull
 	int size = 0;
 	struct Line
 	{
-		LL a, b;
+		ll a, b;
 		Line(): a(0), b(0) {};
-		Line(LL a, LL b): a(a), b(b) {};
-		LL eval(LL x) {return (a * x + b);}
+		Line(ll a, ll b): a(a), b(b) {};
+		ll eval(ll x) {return (a * x + b);}
 	};
 	struct roll_back
 	{
@@ -38,14 +38,14 @@ struct ConvexHull
 		size = prev.top;
 		hull[prev.pos] = prev.overwrite;
 	}
-	LL Div(LL a, LL b)
+	ll Div(ll a, ll b)
 	{
 		return (a / b) - ((a ^ b) < 0 && a % b);
 	}
 	bool bad(Line cur, Line prev, Line next) {
 		return Div(cur.b - next.b, next.a - cur.a) <= Div(prev.b - cur.b, cur.a - prev.a);
 	}
-	void insert(LL k, LL m)/// if u don't or can't sort slope
+	void insert(ll k, ll m)/// if u don't or can't sort slope
 	{
 
 		Line p = Line(k, m);
@@ -61,7 +61,7 @@ struct ConvexHull
 		size = idx;
 		hull[size++] = p;
 	}
-	void add(LL k, LL m) /// if all slopes are sorted
+	void add(ll k, ll m) /// if all slopes are sorted
 	{
 		hull[size++] = Line(k, m);
 		while (size > 2 && bad(hull[size - 2], hull[size - 3], hull[size - 1]))
@@ -70,7 +70,7 @@ struct ConvexHull
 			size--;
 		}
 	}
-	LL query(LL x)
+	ll query(ll x)
 	{
 		int l = -1, r = size - 1;
 		while (r - l > 1)
@@ -84,15 +84,15 @@ struct ConvexHull
 };
 //// Short code from KACTL. Be careful !  This template can only be used from c++14 and above. And this code can't delete or roll back 
 struct Line {
-	mutable LL k, m, p;
+	mutable ll k, m, p;
 	bool operator<(const Line& o) const { return k < o.k; }
-	bool operator<(LL x) const { return p < x; }
+	bool operator<(ll x) const { return p < x; }
 };
  
 struct LineContainer : multiset<Line, less<>> {
 	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
-	static const LL inf = LLONG_MAX;
-	LL div(LL a, LL b) { // floored division
+	static const ll inf = llONG_MAX;
+	ll div(ll a, ll b) { // floored division
 		return a / b - ((a ^ b) < 0 && a % b);
 	}
 	bool isect(iterator x, iterator y) {
@@ -101,14 +101,14 @@ struct LineContainer : multiset<Line, less<>> {
 		else x->p = div(y->m - x->m, x->k - y->k);
 		return x->p >= y->p;
 	}
-	void add(LL k, LL m) {
+	void add(ll k, ll m) {
 		auto z = insert({k, m, 0}), y = z++, x = y;
 		while (isect(y, z)) z = erase(z);
 		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
 		while ((y = x) != begin() && (--x)->p >= y->p)
 			isect(x, erase(y));
 	}
-	LL query(LL x) {
+	ll query(ll x) {
 		assert(!empty());
 		auto l = *lower_bound(x);
 		return l.k * x + l.m;
@@ -126,24 +126,24 @@ struct LineContainer : multiset<Line, less<>> {
 
 struct Line
 {
-  LL m, b;
+  ll m, b;
   double x;
   bool isQuery;
-  Line(LL _m, LL _b, double _x, bool _isQuery) { m = _m; b = _b; x = _x; isQuery = _isQuery; }
-  // Line(LL _m = 0, LL _b = 0) : m(_m), b(_b), x(-inf), isQuery(false) {};
-  LL eval(LL x) const {return (m * x + b);}
+  Line(ll _m, ll _b, double _x, bool _isQuery) { m = _m; b = _b; x = _x; isQuery = _isQuery; }
+  // Line(ll _m = 0, ll _b = 0) : m(_m), b(_b), x(-inf), isQuery(false) {};
+  ll eval(ll x) const {return (m * x + b);}
   bool parallel(const Line &l)const { return m == l.m;}
   double isect(const Line &l)const { return parallel(l) ? -inf : 1.0 * (l.b - b) / (m - l.m); } /// intersection of two lines
   bool operator<(const Line &l) const { if (l.isQuery) return x < l.x; else return m < l.m;}
 };
 template<bool isMaxHull> struct DynamicHull
 {
-	const LL inf=1e18;
+	const ll inf=1e18;
   set<Line> hull;
   typedef set<Line>::iterator iter;
   bool has_Prev(iter it) { return it != hull.begin();}
   bool has_Next(iter it) {return it != hull.end() && next(it) != hull.end();}
-  LL Div(LL a, LL b) {return (a / b) - ((a ^ b) < 0 && a % b);}
+  ll Div(ll a, ll b) {return (a / b) - ((a ^ b) < 0 && a % b);}
   bool bad(const Line &Prev, const Line &Cur, const Line &Next)
   {
     // return Div(Cur.b - Next.b, Next.m - Cur.m) <= Div(Cur.b - Prev.b, Prev.m - Cur.m);
@@ -162,7 +162,7 @@ template<bool isMaxHull> struct DynamicHull
     it = hull.erase(it);
     return hull.insert(it, New);
   }
-  void addLine(LL m, LL b)
+  void addLine(ll m, ll b)
   {
     if (!isMaxHull) { m *= -1ll; b *= -1ll;}
     Line l(m, b, (isMaxHull ? -inf : inf ) , 0);
@@ -178,7 +178,7 @@ template<bool isMaxHull> struct DynamicHull
     if (has_Prev(it)) update(prev(it));/// Update intersection of the mix of the previous of previous line and the previous line 
     if (has_Next(it)) update(next(it));/// Update intersection of the mid of the next of the next line and the next line 
   }
-  LL query(LL X)
+  ll query(ll X)
   {
     if (hull.empty()) return (isMaxHull ? -inf : inf);
     Line LN = *prev(hull.lower_bound(Line(0, 0, X, 1)));

@@ -7,14 +7,13 @@
   * Description how minimum cut work(Source : from a comment on stackoverflow )  : 
 	- Run any max flow algorithm on residual graph (Ford-Fulkerson, Edmonds Karp, Dinic, etc)
 	- Do BFS from source node ignoring saturated edges (edges where flow value = edge capacity)
-	- Now take all edges that go from visited nodes to unvisited nodes
+	- Now take all edges that go from vtsited nodes to unvtsited nodes
 	- Those edges will be one of possible min cuts
 */
 /// 0-based
 template<class T> struct Dinic
 {
-#define vi  vector
-	using IT = vi<int>::iterator;
+	using IT = vt<int>::iterator;
 	struct Edge {int to; T flow, cap;};
 	const T INF = 1e18; /// Change this with 1e9 if type "T" is integer
 	struct INFO
@@ -22,9 +21,9 @@ template<class T> struct Dinic
 		int u, v, id;
 		INFO(int u = 0, int v = 0, int id = 0): u(u), v(v), id(id) {};
 	};
-	vi<pair<int, int>> CUTS;
-	vi<INFO> LIST;/// Use this vector for tracing
-	vi<Edge> eds; vi<vi<int>> adj; vi<int> lev; vi<IT> cur;
+	vt<pair<int, int>> CUTS;
+	vt<INFO> LIST;/// Use this vector for tracing
+	vt<Edge> eds; vt<vt<int>> adj; vt<int> lev; vt<IT> cur;
 	queue<int> q;
 	int n;
 	void init(int _n) { n = _n; adj.clear(); adj.resize(n); cur.clear(); cur.resize(n);}
@@ -38,7 +37,7 @@ template<class T> struct Dinic
 	bool bfs(int s, int t)
 	{
 		assert(q.empty());
-		lev = vi<int>(n, -1); for (int i = 0; i < n; i++) cur[i] = begin(adj[i]);
+		lev = vt<int>(n, -1); for (int i = 0; i < n; i++) cur[i] = begin(adj[i]);
 		q.push(s); lev[s] = 0;
 		while (!q.empty()) {
 			int u = q.front(); q.pop();

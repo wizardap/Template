@@ -9,19 +9,19 @@
 
 //// The larger the number of modules, the slower the program runs
 ///// WARNING ! : Please use "precompute" function , maybe you are wrong because you don't use that function( precompute's function)
-const LL modulo[4] = {(LL)1e9 + 7, (LL)1e9 + 5277, (LL)1e9 + 8277, (LL)1e9 + 9277};
+const ll modulo[4] = {(ll)1e9 + 7, (ll)1e9 + 5277, (ll)1e9 + 8277, (ll)1e9 + 9277};
 const int BASE = 257;
 const int NMOD = 1;
 const int mxn = 1e6 + 5; /// Depends on constraints
-LL pw[NMOD][mxn], mod_inv[NMOD][mxn];
-LL qpow(LL a, LL k, LL mdl)
+ll pw[NMOD][mxn], mod_inv[NMOD][mxn];
+ll qpow(ll a, ll k, ll mdl)
 {
-	LL res = 1;
+	ll res = 1;
 	for (; k; k >>= 1ll, a = a * a % mdl)
 		if (k & 1ll) res = res * a % mdl;
 	return res;
 }
-LL inverse(LL a, LL mdl)
+ll inverse(ll a, ll mdl)
 {
 	return qpow(a, mdl - 2, mdl);
 }
@@ -35,7 +35,7 @@ void precompute(const int &Leng)
 		}
 }
 struct Hash {
-	LL value[NMOD];
+	ll value[NMOD];
 	Hash() {
 		memset(value, 0, sizeof value);
 	}
@@ -59,7 +59,7 @@ struct Hash {
 	Hash operator * (int k) const {
 		Hash res;
 		for (int j = 0; j < NMOD; j++)
-			res.value[j] = 1LL * value[j] * pw[j][k] % modulo[j];
+			res.value[j] = 1ll * value[j] * pw[j][k] % modulo[j];
 		return res;
 	}
 	bool operator < (const Hash &x) const {
