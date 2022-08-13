@@ -9,7 +9,6 @@
 /// 0-based
 template<class T> struct Dinic
 {
-#define vt vector
     struct Edge {int to, rev; T flow, cap;};
     bool SCALING = false;
     const T INF = 1e18;

@@ -15,7 +15,7 @@ template<class T> struct Dinic
 {
 	using IT = vt<int>::iterator;
 	struct Edge {int to; T flow, cap;};
-	const T INF = 1e18; /// Change this with 1e9 if type "T" is integer
+	const T INF = numeric_limits<T>::max(); /// Change this with 1e9 if type "T" is integer
 	struct INFO
 	{
 		int u, v, id;
@@ -41,9 +41,9 @@ template<class T> struct Dinic
 		q.push(s); lev[s] = 0;
 		while (!q.empty()) {
 			int u = q.front(); q.pop();
-			rof(it, adj[u])
+		for (auto it : adj[u])
 			{
-				const Edge& e = eds[*it];
+				const Edge& e = eds[it];
 				int v = e.to;
 				if (lev[v] < 0 && e.flow < e.cap)
 				{
@@ -84,10 +84,10 @@ template<class T> struct Dinic
 	{
 		T total = 0;
 		bfs(s, t);
-		rof(it, LIST) {
-			int u = it->u;
-			int v = it->v;
-			int id = it->id;
+		for (auto it : LIST) {
+			int u = it.u;
+			int v = it.v;
+			int id = it.id;
 			if (lev[u] >= 0 && lev[v] == -1) {
 				total += eds[id].cap;
 				CUTS.pb(make_pair(u, v));

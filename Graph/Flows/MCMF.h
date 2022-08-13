@@ -59,31 +59,31 @@ public:
 			int u = q.front();
 			q.pop();
 			inq[u] = false;
-			rof(id, adj[u])
-			if (eds[*id].rem() > 0)
+		for (auto id : adj[u])
+			if (eds[id].rem() > 0)
 			{
-				int v = eds[*id].v;
-				ll w = eds[*id].cost;
-				if (minimize(dist[v], dist[u] + w))
+				int v = eds[id].v;
+				ll w = eds[id].cost;
+				if (ckmin(dist[v], dist[u] + w))
 				{
 					if (!inq[v])
 					{
 						q.push(v);
 						inq[v] = true;
 					}
-					trace[v] = *id;
+					trace[v] = id;
 				}
 			}
 		}
 		return trace[t] != -1;
 	}
-	pair<ll, ll> getans(int s, int t)
+	pair<ll, ll> answer(int s, int t)
 	{
 		ll totflow = 0, totcost = 0;
 		while (path(s, t))
 		{
 			ll minflow = INFINITIVE;
-			for (int u = t; u != s; u = eds[trace[u]].u) minimize(minflow, eds[trace[u]].rem());
+			for (int u = t; u != s; u = eds[trace[u]].u) ckmin(minflow, eds[trace[u]].rem());
 			for (int u = t; u != s; u = eds[trace[u]].u) {
 				eds[trace[u]].flow += minflow;
 				eds[trace[u] ^ 1].flow -= minflow;

@@ -67,7 +67,7 @@ struct EK
 		while (BFS(s, t))
 		{
 			ll min_flow = inf;
-			for (int  u = t; u != s; u = eds[trace[u]].u) minimize(min_flow, eds[trace[u]].rem());
+			for (int  u = t; u != s; u = eds[trace[u]].u) ckmin(min_flow, eds[trace[u]].rem());
 			for (int u = t; u != s; u = eds[trace[u]].u)
 			{
 				eds[trace[u]].flow += min_flow;

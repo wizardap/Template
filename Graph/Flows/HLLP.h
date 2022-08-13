@@ -5,7 +5,6 @@
   This implemetation is faster than Dinic Algorithm 
  */
 
-using vt = vector<int>;
 struct PushRelabel {
   struct Edge {
     int dest, back;
@@ -14,7 +13,7 @@ struct PushRelabel {
   vector<vector<Edge>> g;
   vector<ll> ec;
   vector<Edge*> cur;
-  vector<vt> hs; vt H;
+  vector<vt<int>> hs; vt<int> H;
   PushRelabel(int n) : g(n), ec(n), cur(n), hs(2 * n), H(n) {}
 
   void addEdge(int s, int t, ll cap, ll rcap = 0) {
@@ -29,9 +28,9 @@ struct PushRelabel {
     e.f += f; e.c -= f; ec[e.dest] += f;
     back.f -= f; back.c += f; ec[back.dest] -= f;
   }
-  ll calc(int s, int t) {
+  ll maxflow(int s, int t) {
     int v = sz(g); H[s] = v; ec[t] = 1;
-    vt co(2 * v); co[0] = v - 1;
+    vt<int> co(2 * v); co[0] = v - 1;
     for (int i =0;i<v;i++) cur[i] = g[i].data();
     for (Edge& e : g[s]) addFlow(e, e.c);
 

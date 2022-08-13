@@ -1,15 +1,3 @@
-/*
-  Source : skyvn97
-  Modified by WizardAP
-  Verification :
-      - https://oj.vnoi.info/problem/kway
-*/
-/*
-    Warning ! :
-      + Create a fake source and fake sink to use this template
-      + Can't use with negative weight 
-*/
-const ll inf = 1e18;
 struct MCMF
 {
 	struct Edge
@@ -53,15 +41,15 @@ struct MCMF
 			ll du = pq.top().ft;
 			pq.pop();
 			if (du != dist[u]) continue;
-			rof(id, adj[u])
-			if (eds[*id].rem() > 0)
+		for (int id : adj[u])
+			if (eds[id].rem() > 0)
 			{
-				int v = eds[*id].v;
-				ll w = eds[*id].cost;
-				if (minimize(dist[v], dist[u] + w))
+				int v = eds[id].v;
+				ll w = eds[id].cost;
+				if (ckmin(dist[v], dist[u] + w))
 				{
 					pq.push(make_pair(dist[v], v));
-					trace[v] = *id;
+					trace[v] = id;
 				}
 			}
 		}
@@ -73,7 +61,7 @@ struct MCMF
 		while (path(s, t))
 		{
 			ll minflow = inf;
-			for (int u = t; u != s; u = eds[trace[u]].u) minimize(minflow, eds[trace[u]].rem());
+			for (int u = t; u != s; u = eds[trace[u]].u) ckmin(minflow, eds[trace[u]].rem());
 			for (int u = t; u != s; u = eds[trace[u]].u) {
 				eds[trace[u]].flow += minflow;
 				eds[trace[u] ^ 1].flow -= minflow;
@@ -83,4 +71,4 @@ struct MCMF
 		}
 		return make_pair(totflow, totcost);
 	}
-} ;
+};
