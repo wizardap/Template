@@ -37,7 +37,7 @@ template<class T> struct SegTree
 	void upd(int u, int v, T val) {upd(u, v, val, 1, 1, N);}
 	T get(int u, int v) {return get(u, v, 1, 1, N);}
 };
-template<bool vte> struct hld
+template<bool vte> struct hld /// vte : value on edge 
 {
 	vector<vector<int>> adj;
 	vector<int> depth, parent, head, heavy, pos, size;
@@ -58,9 +58,8 @@ template<bool vte> struct hld
 		depth[u] = depth[p] + 1;
 		size[u] = 1;
 		int max_size = 0;
-		rof(it, adj[u])
+		for (int v : adj[u])
 		{
-			int v = *it;
 			if (v == p) continue;
 			dfs(v, u);
 			size[u] += size[v];
@@ -72,9 +71,9 @@ template<bool vte> struct hld
  
 		head[u] = h; pos[u] = ++timer;
 		if (heavy[u] != -1) decompose(heavy[u], h);
-		rof(it, adj[u])
+		for (int v : adj[u])
 		{
-			int v = *it; if (v == parent[u] || v == heavy[u]) continue;
+			if (v == parent[u] || v == heavy[u]) continue;
 			decompose(v, v);
 		}
 	}
