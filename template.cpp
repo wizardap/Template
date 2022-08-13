@@ -27,7 +27,6 @@ const int INF = 1e9;
 const ld eps = 1e-9;
 ll fmul(ll a, ll b, ll MOD = mod) {a %= MOD; b %= MOD; ll q = (ld)a * b / MOD; ll r = a * b - q * MOD; return (r % MOD + MOD) % MOD;}
 ///Head
-
 void Solve()
 {
       
