@@ -1,7 +1,7 @@
 /*
-	Resource : https://github.com/drken1215/algorithm/blob/master/MathCombinatorics/mod.cpp
+    Resource : https://github.com/drken1215/algorithm/blob/master/MathCombinatorics/mod.cpp
 */
-template<long long Modulus=mod> struct modint {
+template<long long Modulus = mod> struct modint {
     long long val;
     constexpr modint(long long v = 0) noexcept : val(v % Modulus) {
         if (val < 0) val += Modulus;
@@ -54,7 +54,7 @@ template<long long Modulus=mod> struct modint {
     friend constexpr ostream& operator << (ostream& os, const modint<Modulus>& x) noexcept {
         return os << x.val;
     }
-    friend constexpr modint<Modulus> modpow(const modint<Modulus>& r, long long n) noexcept {
+    constexpr modint<Modulus> modpow(const modint<Modulus>& r, long long n) noexcept {
         if (n == 0) return 1;
         if (n < 0) return modpow(modinv(r), -n);
         auto t = modpow(r, n / 2);
@@ -62,7 +62,16 @@ template<long long Modulus=mod> struct modint {
         if (n & 1) t = t * r;
         return t;
     }
-    friend constexpr modint<Modulus> modinv(const modint<Modulus>& r) noexcept {
+    constexpr modint<Modulus> Pow(long long n) noexcept {
+        modint<Modulus> res = 1;
+        modint<Modulus> p = (*this);
+        if (n < 0) p = modinv(p), n = -n;
+        for (; n > 0; n >>= 1ll, p *= p)
+            if (n & 1) res *= p;
+        return res;
+
+    }
+    constexpr modint<Modulus> modinv(const modint<Modulus>& r) noexcept {
         long long a = r.val, b = Modulus, u = 1, v = 0;
         while (b) {
             long long t = a / b;
@@ -85,15 +94,15 @@ template<class T> struct BiCoef {
     constexpr void init(int n) noexcept {
         fact_.assign(n, 1), inv_.assign(n, 1), finv_.assign(n, 1);
         int Modulus = fact_[0].getmod();
-        for(int i = 2; i < n; i++){
-            fact_[i] = fact_[i-1] * i;
-            inv_[i] = -inv_[Modulus%i] * (Modulus/i);
-            finv_[i] = finv_[i-1] * inv_[i];
+        for (int i = 2; i < n; i++) {
+            fact_[i] = fact_[i - 1] * i;
+            inv_[i] = -inv_[Modulus % i] * (Modulus / i);
+            finv_[i] = finv_[i - 1] * inv_[i];
         }
     }
     constexpr T com(int n, int k) const noexcept {
         if (n < k || n < 0 || k < 0) return 0;
-        return fact_[n] * finv_[k] * finv_[n-k];
+        return fact_[n] * finv_[k] * finv_[n - k];
     }
     constexpr T fact(int n) const noexcept {
         if (n < 0) return 0;
