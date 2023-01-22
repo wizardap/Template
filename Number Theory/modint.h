@@ -88,13 +88,13 @@ using mint = modint<mod>;
 template<class T> struct BiCoef {
     vector<T> fact_, inv_, finv_;
     constexpr BiCoef() {}
-    constexpr BiCoef(int n) noexcept : fact_(n, 1), inv_(n, 1), finv_(n, 1) {
+    constexpr BiCoef(int n) noexcept : fact_(n + 1, 1), inv_(n + 1, 1), finv_(n + 1, 1) {
         init(n);
     }
     constexpr void init(int n) noexcept {
-        fact_.assign(n, 1), inv_.assign(n, 1), finv_.assign(n, 1);
+        fact_.assign(n + 1, 1), inv_.assign(n + 1, 1), finv_.assign(n + 1, 1);
         int Modulus = fact_[0].getmod();
-        for (int i = 2; i < n; i++) {
+        for (int i = 2; i <= n; i++) {
             fact_[i] = fact_[i - 1] * i;
             inv_[i] = -inv_[Modulus % i] * (Modulus / i);
             finv_[i] = finv_[i - 1] * inv_[i];
